@@ -20,8 +20,8 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
+      - name: Debug - show file contents
+        run: head -6 portfolio_summary.py
+
       - name: Run portfolio summary
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python portfolio_summary.py
