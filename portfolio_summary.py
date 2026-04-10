@@ -1,9 +1,8 @@
-import os
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 
-BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
-CHAT_ID = os.environ["TELEGRAM_CHAT_ID"]
+BOT_TOKEN = "8708313908:AAGkCMx8UQU0S6lhKWp6B-voXDnRUopptjY"
+CHAT_ID = "8679876200"
 
 TICKERS = ["GOOGL", "NFLX", "BRK-B", "AXON", "OXY", "PAYC", "NU"]
 DISPLAY_NAMES = {"BRK-B": "BRKB"}
@@ -23,7 +22,7 @@ def fetch_quote(ticker):
     }
 
 def build_message():
-    date_str = datetime.utcnow().strftime("%Y-%m-%d")
+    date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     rows = []
     for ticker in TICKERS:
         label = DISPLAY_NAMES.get(ticker, ticker)
