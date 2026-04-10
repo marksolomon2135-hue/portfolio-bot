@@ -1,0 +1,27 @@
+name: Morning Portfolio Summary
+
+on:
+  schedule:
+    # 9:30 AM ET = 13:30 UTC (EDT/summer). Adjust to 14:30 UTC in winter if needed.
+    - cron: '30 13 * * 1-5'
+  workflow_dispatch: # allow manual runs from GitHub UI
+
+jobs:
+  send-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run portfolio summary
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python portfolio_summary.py
